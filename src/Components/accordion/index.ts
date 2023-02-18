@@ -1,0 +1,1 @@
+import SimpleAccordion from "./accordion";
