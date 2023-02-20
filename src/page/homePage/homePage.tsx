@@ -14,11 +14,15 @@ import SimpleAccordion from "../../Components/accordion/accordion";
 import Burger from "../../Components/burger/burger";
 import Menu from "./../../Components/menu/menu";
 import WebworkerButton from "../../Components/button/button";
-import ArticleFirst, { ArticleSecond, ArticleThird } from "../../Components/article/article";
-import Input from "../../Components/input/input";
+import ArticleFirst, {
+  ArticleSecond,
+  ArticleThird,
+} from "../../Components/article/article";
+import { Autocomplete, TextField } from "@mui/material";
 
 const HomePage = () => {
   const [cards, setCards] = useState([]);
+  console.log(cards);
 
   useEffect(() => {
     getCharacter().then((data: any) => {
@@ -74,7 +78,24 @@ const HomePage = () => {
         <AsideWrapper>
           <SimpleAccordion></SimpleAccordion>
           <WebworkerButton></WebworkerButton>
-          <Input></Input>
+          <Autocomplete
+            disablePortal
+            options={cards}
+            sx={{ width: 150 }}
+            getOptionLabel={(option: any) => option.name || ""}
+            renderInput={(params) => <TextField {...params} label="Character" />}
+            filterOptions={(options, state) => {
+              console.log(options);
+              if (state.inputValue.length > 2) {
+                return options.filter((item) =>
+                  String(item.name)
+                    .toLowerCase()
+                    .includes(state.inputValue.toLowerCase())
+                );
+              }
+              return options;
+            }}
+          />
         </AsideWrapper>
       </ContentWrapper>
     </>
