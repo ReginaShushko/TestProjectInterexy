@@ -10,6 +10,13 @@ export const initialState: IContactState = {
     name: "",
     email: "",
     message: "",
+    // character: [],
+    // pending: {
+    //     characters" : false.
+    // }
+    // errors: {}{
+    //     characters: "",
+    // }
 };
 
 const contactSlice = createSlice({
