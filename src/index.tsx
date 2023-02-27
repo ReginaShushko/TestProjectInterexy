@@ -1,10 +1,17 @@
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+//=========== React ================//
+import App from "./App";
+import "./index.css";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
+
+//========== Service Worker =========//
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { store } from "./store/store";
+
+//========== Styles ===============//
+import { ThemeProvider } from "styled-components";
+import { theme } from "./Components/styles/mainTheme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,7 +19,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </BrowserRouter>
 );

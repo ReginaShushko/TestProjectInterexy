@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { bool, func } from 'prop-types';
+
 import { StyledBurger } from "./burger.styled";
 
 type BurgerProps = {

@@ -1,3 +1,12 @@
+//========== React ========//
+import { useDispatch, useSelector } from "react-redux";
+
+//========== Components ==========//
+import { contactActions } from "../../store/contact/contactSlice";
+import { RootState } from "../../store/store";
+import { ContactUsForm } from "./styled.contactUs";
+
+//============= Material UI =========//
 import {
   Button,
   CssBaseline,
@@ -5,10 +14,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { contactActions } from "../../store/contact/contact.slice";
-import { RootState } from "../../store/store";
-import { ContactUsForm } from "./styled.contactUs";
 
 export const ContactUs = () => {
   const name = useSelector((state: RootState) => state.contact.name);

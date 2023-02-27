@@ -27,6 +27,11 @@ export const SquareSecond = styled.div`
   width: 45px;
   background-color: #036954;
 `;
+export const SquareSecondWrapper = styled.div`
+  height: 45px;
+  padding: 10px;
+  min-width: 500px;
+`;
 export const SquareThird = styled.div`
   height: 45px;
   width: 45px;

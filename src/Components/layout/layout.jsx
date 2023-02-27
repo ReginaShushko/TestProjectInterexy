@@ -1,6 +1,7 @@
-import Header from "../header";
-import { Footer } from "../../page/homePage/styles";
 import { Outlet } from "react-router-dom";
+import Header from "../header";
+
+import { Footer } from "../../page/homePage/styles";
 
 const Layout = () => {
   return (

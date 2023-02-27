@@ -1,0 +1,26 @@
+version: latest
+services:
+  web:
+    container_name: app
+    image: getting-started:latest
+    ports:
+      - "8081:8081"
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: db.env.POSTGRES_USER
+      POSTGRES_PASSWORD: db.env.POSTGRES_PASSWORD
+      POSTGRES_DB: db.env.POSTGRES_DB
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: database
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin.env.PGADMIN_DEFAULT_EMAIL
+      PGADMIN_DEFAULT_PASSWORD: pgadmin.env.PGADMIN_DEFAULT_PASSWORD
+    ports:
+      - "5050:80"

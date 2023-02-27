@@ -1,5 +1,8 @@
+//========== React =========//
 import { FC } from "react";
 import { bool } from "prop-types";
+
+//=========== Styles ==========//
 import { Navigation } from "../../page/homePage/styles";
 
 type MenuProps = {

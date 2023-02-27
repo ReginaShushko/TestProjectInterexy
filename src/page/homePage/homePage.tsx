@@ -1,28 +1,44 @@
-//import "./App.css";
+//========== React =========//
+import { useEffect, useMemo, useState } from "react";
+
+//=========== Material UI ============//
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
-import Avatar from "@mui/material/Avatar";
-import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useEffect, useMemo, useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import { getCharacter } from "../../api/characterApi/index";
-import { ArticleWrapper, ContentWrapper } from "./styles";
-import { AsideWrapper } from "./styles";
-import SimpleAccordion from "../../Components/accordion/accordion";
-import Burger from "../../Components/burger/burger";
-import Menu from "./../../Components/menu/menu";
-import WebworkerButton from "../../Components/button/button";
+import { Autocomplete, TextField } from "@mui/material";
+
+//========== Components ============//
 import ArticleFirst, {
   ArticleSecond,
   ArticleThird,
 } from "../../Components/article/article";
-import { Autocomplete, TextField } from "@mui/material";
+import Menu from "./../../Components/menu/menu";
+import Burger from "../../Components/burger/burger";
+import SimpleAccordion from "../../Components/accordion/accordion";
+import WebworkerButton from "../../Components/button/button";
+import { getCharacter } from "../../api/characterApi/index";
+
+//============= Styles ==============//
+import { ArticleWrapper, ContentWrapper } from "./styles";
+import { AsideWrapper } from "./styles";
+
+interface ICharacter {
+  id: number;
+  name: string;
+  status: string;
+  species: string;
+  gender: string;
+  image: string;
+}
 
 const HomePage = () => {
   const [cards, setCards] = useState([]);
-  console.log(cards);
+  const [open, setOpen] = useState(false);
+  const [searchCharacter, setSearchCharacter] = useState<ICharacter | null>(
+    null
+  );
 
   useEffect(() => {
     getCharacter().then((data: any) => {
@@ -35,12 +51,6 @@ const HomePage = () => {
       return (
         <Card sx={{ minWidth: 300 }}>
           <CardHeader
-            avatar={
-              <Avatar
-                sx={{ bgcolor: red[500] }}
-                aria-label="character"
-              ></Avatar>
-            }
             action={
               <IconButton aria-label="settings">
                 <MoreVertIcon />
@@ -60,8 +70,6 @@ const HomePage = () => {
     });
   }, [cards]);
 
-  const [open, setOpen] = useState(false);
-
   return (
     <>
       <ContentWrapper>
@@ -73,6 +81,29 @@ const HomePage = () => {
             <ArticleSecond></ArticleSecond>
             <ArticleThird></ArticleThird>
           </ArticleWrapper>
+          <div>
+            {searchCharacter ? (
+              <Card sx={{ minWidth: 300 }}>
+                <CardHeader
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title={searchCharacter?.name}
+                  subheader={searchCharacter?.species}
+                />
+                <CardMedia
+                  component="img"
+                  height="300"
+                  image={searchCharacter?.image}
+                  alt="character"
+                />
+              </Card>
+            ) : (
+              ""
+            )}
+          </div>
           {cards.length ? memoCards : "Ups..."}
         </ArticleWrapper>
         <AsideWrapper>
@@ -82,8 +113,11 @@ const HomePage = () => {
             disablePortal
             options={cards}
             sx={{ width: 150 }}
+            onChange={(e, value) => setSearchCharacter(value)}
             getOptionLabel={(option: any) => option.name || ""}
-            renderInput={(params) => <TextField {...params} label="Character" />}
+            renderInput={(params) => (
+              <TextField {...params} label="Character" />
+            )}
             filterOptions={(options, state) => {
               console.log(options);
               if (state.inputValue.length > 2) {

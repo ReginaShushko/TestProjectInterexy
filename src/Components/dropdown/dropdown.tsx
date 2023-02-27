@@ -1,4 +1,6 @@
 import * as React from "react";
+
+//============ MAterial UI ==========//
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,7 +15,7 @@ export default function Dropdown() {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120, padding: 1 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">DROPDOWN</InputLabel>
         <Select
